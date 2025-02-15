@@ -21,6 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Leaf } from "lucide-react";
 
 export default function Home() {
 	const [formData, setFormData] = useState({
@@ -74,8 +75,8 @@ export default function Home() {
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-secondary via-secondary/95 to-secondary/90 flex items-center justify-center">
 			<main className="container mx-auto p-4 flex flex-col items-center">
-				<h1 className="text-3xl font-bold mb-6 text-center text-white">
-					Sustainability Training Generator
+				<h1 className="flex text-3xl font-bold mb-6 text-center text-white items-center">
+					<Leaf className="mr-4 w-8 h-8"/> Sustainability Training Generator
 				</h1>
 				<div className="grid md:grid-cols-2 gap-6 w-full max-w-6xl">
 					<Card className="bg-card/30 backdrop-blur-sm border-primary/10 h-[700px] overflow-y-auto">
@@ -90,7 +91,7 @@ export default function Home() {
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
-							<form className="space-y-4" onSubmit={handleSubmit}>
+							<form className="space-y-8" onSubmit={handleSubmit}>
 								<div className="space-y-2">
 									<label
 										htmlFor="companyName"
@@ -177,7 +178,7 @@ export default function Home() {
 								<Button
 									type="submit"
 									disabled={isLoading}
-									className="w-full bg-primary text-white hover:bg-primary/90"
+									className="w-full bg-primary text-white hover:bg-primary/90 mt-8"
 								>
 									{isLoading
 										? "Generating..."
