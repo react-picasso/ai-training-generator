@@ -33,33 +33,33 @@ export default function Home() {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsLoading(true);
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setIsLoading(true);
 
-        try {
-            const response = await fetch("/api/generate-training", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            });
+		try {
+			const response = await fetch("/api/generate-training", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
 
-            if (!response.ok) {
-                throw new Error('Failed to generate training')
-            }
+			if (!response.ok) {
+				throw new Error("Failed to generate training");
+			}
 
-            const data = await response.json();
-            console.log(data);
-            setTrainingOutline(data.trainingOutline);
-            router.refresh();
-        } catch (error) {
-            console.error('Error:', error)
-        } finally {
-            setIsLoading(false);
-        }
-    }
+			const data = await response.json();
+			console.log(data);
+			setTrainingOutline(data.trainingOutline);
+			router.refresh();
+		} catch (error) {
+			console.error("Error:", error);
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -72,13 +72,13 @@ export default function Home() {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-secondary via-secondary/95 to-secondary/90">
-			<main className="container mx-auto p-4">
+		<div className="min-h-screen bg-gradient-to-br from-secondary via-secondary/95 to-secondary/90 flex items-center justify-center">
+			<main className="container mx-auto p-4 flex flex-col items-center">
 				<h1 className="text-3xl font-bold mb-6 text-center text-white">
 					Sustainability Training Generator
 				</h1>
-				<div className="grid md:grid-cols-2 gap-6 justify-center items-center">
-					<Card className="bg-card/30 backdrop-blur-sm border-primary/10">
+				<div className="grid md:grid-cols-2 gap-6 w-full max-w-6xl">
+					<Card className="bg-card/30 backdrop-blur-sm border-primary/10 h-[700px] overflow-y-auto">
 						<CardHeader>
 							<CardTitle className="text-white">
 								Input Company Details
@@ -187,25 +187,75 @@ export default function Home() {
 						</CardContent>
 					</Card>
 
-                    <Card className="bg-card/30 backdrop-blur-sm border-primary/10">
-                        <CardHeader>
-                            <CardTitle className="text-white">Generated Training Outline</CardTitle>
-                            <CardDescription className="text-white/70">
-                                Your tailored sustainability training outline will appear here.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            {trainingOutline ? (
-                                <div className="bg-muted/30 p-4 rounded-lg text-white text-sm">
-                                    <ReactMarkdown>{trainingOutline}</ReactMarkdown>
-                                </div>
-                            ) : (
-                                <p className="text-white/50 italic">
-                                No training outline generated yet. Fill out the form and click "Generate Training" to see results.
-                                </p>
-                            )}
-                        </CardContent>
-                    </Card>
+					<Card className="bg-card/30 backdrop-blur-sm border-primary/10 h-[700px] overflow-y-auto">
+						<CardHeader>
+							<CardTitle className="text-white">
+								Generated Training Outline
+							</CardTitle>
+							<CardDescription className="text-white/70">
+								Your tailored sustainability training outline
+								will appear here.
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
+							{trainingOutline ? (
+								<div className="prose prose-invert prose-sm max-w-none">
+									<ReactMarkdown
+										components={{
+											h1: ({ children }) => (
+												<h1 className="text-2xl font-bold mb-4 text-white">
+													{children}
+												</h1>
+											),
+											h2: ({ children }) => (
+												<h2 className="text-xl font-bold mb-3 mt-6 text-white">
+													{children}
+												</h2>
+											),
+											h3: ({ children }) => (
+												<h3 className="text-lg font-bold mb-2 mt-4 text-white">
+													{children}
+												</h3>
+											),
+											p: ({ children }) => (
+												<p className="mb-4 text-white/90">
+													{children}
+												</p>
+											),
+											ul: ({ children }) => (
+												<ul className="list-disc pl-6 mb-4 text-white/90">
+													{children}
+												</ul>
+											),
+											li: ({ children }) => (
+												<li className="mb-1">
+													{children}
+												</li>
+											),
+											strong: ({ children }) => (
+												<strong className="font-bold text-gray">
+													{children}
+												</strong>
+											),
+											em: ({ children }) => (
+												<em className="italic text-white/80">
+													{children}
+												</em>
+											),
+										}}
+									>
+										{trainingOutline}
+									</ReactMarkdown>
+								</div>
+							) : (
+								<p className="text-white/50 italic">
+									No training outline generated yet. Fill out
+									the form and click "Generate Training" to
+									see results.
+								</p>
+							)}
+						</CardContent>
+					</Card>
 				</div>
 			</main>
 		</div>
