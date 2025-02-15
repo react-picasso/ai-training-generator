@@ -1,6 +1,6 @@
 "use client";
 
-import { generateTraining } from "@/actions/generateTraining";
+import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -33,6 +33,34 @@ export default function Home() {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        try {
+            const response = await fetch("/api/generate-training", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to generate training')
+            }
+
+            const data = await response.json();
+            console.log(data);
+            setTrainingOutline(data.trainingOutline);
+            router.refresh();
+        } catch (error) {
+            console.error('Error:', error)
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
@@ -62,7 +90,7 @@ export default function Home() {
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
-							<form className="space-y-4">
+							<form className="space-y-4" onSubmit={handleSubmit}>
 								<div className="space-y-2">
 									<label
 										htmlFor="companyName"
@@ -169,7 +197,7 @@ export default function Home() {
                         <CardContent>
                             {trainingOutline ? (
                                 <div className="bg-muted/30 p-4 rounded-lg text-white text-sm">
-                                <pre className="whitespace-pre-wrap font-sans">{trainingOutline}</pre>
+                                    <ReactMarkdown>{trainingOutline}</ReactMarkdown>
                                 </div>
                             ) : (
                                 <p className="text-white/50 italic">
