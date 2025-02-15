@@ -23,6 +23,14 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Leaf } from "lucide-react";
 
+const Spinner = () => {
+	return (
+		<div className="flex justify-center items-center h-full">
+			<div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary"></div>
+		</div>
+	);
+};
+
 export default function Home() {
 	const [formData, setFormData] = useState({
 		companyName: "",
@@ -76,7 +84,8 @@ export default function Home() {
 		<div className="min-h-screen bg-gradient-to-br from-secondary via-secondary/95 to-secondary/90 flex items-center justify-center">
 			<main className="container mx-auto p-4 flex flex-col items-center">
 				<h1 className="flex text-3xl font-bold mb-6 text-center text-white items-center">
-					<Leaf className="mr-4 w-8 h-8"/> Sustainability Training Generator
+					<Leaf className="mr-4 w-8 h-8" /> Sustainability Training
+					Generator
 				</h1>
 				<div className="grid md:grid-cols-2 gap-6 w-full max-w-6xl">
 					<Card className="bg-card/30 backdrop-blur-sm border-primary/10 h-[700px] overflow-y-auto">
@@ -199,7 +208,9 @@ export default function Home() {
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
-							{trainingOutline ? (
+							{isLoading ? (
+								<Spinner />
+							) : trainingOutline ? (
 								<div className="prose prose-invert prose-sm max-w-none">
 									<ReactMarkdown
 										components={{
