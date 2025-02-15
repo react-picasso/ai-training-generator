@@ -1,18 +1,62 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
-  },
-  plugins: [],
+	darkMode: ["class"],
+	content: [
+		"./pages/**/*.{js,ts,jsx,tsx,mdx}",
+		"./components/**/*.{js,ts,jsx,tsx,mdx}",
+		"./app/**/*.{js,ts,jsx,tsx,mdx}",
+	],
+	theme: {
+		extend: {
+			colors: {
+				background: "hsl(var(--background))",
+				foreground: "hsl(var(--foreground))",
+				card: {
+					DEFAULT: "rgba(255, 255, 255, 0.05)",
+					foreground: "#FFFFFF",
+				},
+				popover: {
+					DEFAULT: "#0D2821",
+					foreground: "#FFFFFF",
+				},
+				primary: {
+					DEFAULT: "#2FBF71",
+					foreground: "#FFFFFF",
+				},
+				secondary: {
+					DEFAULT: "#0D2821",
+					foreground: "#FFFFFF",
+				},
+				muted: {
+					DEFAULT: "rgba(255, 255, 255, 0.1)",
+					foreground: "#FFFFFF",
+				},
+				accent: {
+					DEFAULT: "#2FBF71",
+					foreground: "#FFFFFF",
+				},
+				destructive: {
+					DEFAULT: "hsl(var(--destructive))",
+					foreground: "hsl(var(--destructive-foreground))",
+				},
+				border: "hsl(var(--border))",
+				input: "hsl(var(--input))",
+				ring: "hsl(var(--ring))",
+				chart: {
+					"1": "hsl(var(--chart-1))",
+					"2": "hsl(var(--chart-2))",
+					"3": "hsl(var(--chart-3))",
+					"4": "hsl(var(--chart-4))",
+					"5": "hsl(var(--chart-5))",
+				},
+			},
+			borderRadius: {
+				lg: "var(--radius)",
+				md: "calc(var(--radius) - 2px)",
+				sm: "calc(var(--radius) - 4px)",
+			},
+		},
+	},
+	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
