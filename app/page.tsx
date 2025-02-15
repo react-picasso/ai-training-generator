@@ -261,7 +261,7 @@ export default function Home() {
 							) : (
 								<p className="text-white/50 italic">
 									No training outline generated yet. Fill out
-									the form and click "Generate Training" to
+									the form and click &quot;Generate Training&quot; to
 									see results.
 								</p>
 							)}
