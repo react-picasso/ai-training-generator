@@ -34,29 +34,30 @@ The Sustainability Training Generator is an AI-powered web application that crea
 1. Clone the repository:
 
 ```
-git clone https://github.com/yourusername/sustainability-training-generator.git
-cd sustainability-training-generator
+git clone https://github.com/react-picasso/ai-training-generator.git
+cd ai-training-generator
 ```
 
 2. Install dependencies:
 ```
-npm install
+bun install
 ```
 
 3. Set up environment variables: Create a .env file in the root directory and add the following:
 ```
 DATABASE_URL="your_postgresql_database_url_here"
-GOOGLE_API_KEY="your_google_ai_studio_api_key_here"
+GEMINI_API_KEY="your_gemini_api_key_here"
 ```
 
 4. Set up the database:
 ```
-npx prisma migrate dev
+bunx prisma init
+bunx prisma db push
 ```
 
 5. Run the development server:
 ```
-npm run dev
+bun run dev
 ```
 
 6. Open http://localhost:3000 in your browser to see the application.
